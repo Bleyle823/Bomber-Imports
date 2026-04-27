@@ -19,11 +19,11 @@ export const headerLinks: Link[] = [
   },
   {
     name: "Accessories",
-    url: "#",
+    url: "/accessories",
   },
   {
     name: "Support",
-    url: "#",
+    url: "/support",
   },
 ];
 

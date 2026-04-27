@@ -4,10 +4,9 @@ import Link from "next/link";
 import { stagger, useAnimate } from "framer-motion";
 
 import Logo from "@/shared/ui/Logo";
-import Search from "@/shared/ui/icons/Search";
-import Bag from "@/shared/ui/icons/Bag";
 
 import { useDevice } from "@/shared/hooks/useDevice";
+import { createWhatsAppLink } from "@/shared/constants/contact";
 
 import { headerLinks } from "../constants/headerLinks";
 
@@ -41,11 +40,11 @@ const Navbar: FC = () => {
         )}
         <li>
           <Link
-            href="https://wa.me/254769655561"
+            href={createWhatsAppLink("Hi Bomber Imports, I want to negotiate a phone price.")}
             target="_blank"
-            className="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-green-700 transition-colors"
+            className="bg-white text-black px-4 py-2 rounded-full text-xs font-bold hover:bg-zinc-200 transition-colors"
           >
-            WhatsApp
+            Negotiate
           </Link>
         </li>
 
