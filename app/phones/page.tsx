@@ -2,12 +2,17 @@
 import { type FC, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { phones, Phone } from "@/shared/constants/phones";
-import Button from "@/shared/ui/Button";
+import { createWhatsAppLink } from "@/shared/constants/contact";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 
 import Phone3DPreview from "@/shared/ui/Phone3DPreview";
+
+const brandAliases: Record<string, string> = {
+    iphone: "Apple",
+    pixel: "Google",
+};
 
 const PhoneCard: FC<{ phone: Phone }> = ({ phone }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -30,7 +35,7 @@ const PhoneCard: FC<{ phone: Phone }> = ({ phone }) => {
     };
 
     const whatsappMessage = `Hi Bomber Imports, I'm interested in the ${phone.brand} ${phone.model} for ${formatPrice(phone.price)}. Is it available?`;
-    const whatsappLink = `https://wa.me/254769655561?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappLink = createWhatsAppLink(whatsappMessage);
 
     return (
         <motion.div
@@ -103,14 +108,22 @@ const PhoneCard: FC<{ phone: Phone }> = ({ phone }) => {
                 </div>
             </div>
 
-            <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-green-600 text-white text-center py-3 rounded-xl font-bold hover:bg-green-700 transition-colors mt-auto flex items-center justify-center gap-2"
-            >
-                <span>Chat with Vendor</span>
-            </a>
+            <div className="mt-auto grid gap-3">
+                <Link
+                    href={`/phones/${phone.id}`}
+                    className="w-full border border-zinc-700 text-white text-center py-3 rounded-xl font-bold hover:bg-zinc-800 transition-colors"
+                >
+                    View details
+                </Link>
+                <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-white text-black text-center py-3 rounded-xl font-bold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
+                >
+                    <span>Negotiate price</span>
+                </a>
+            </div>
         </motion.div>
     );
 };
@@ -118,9 +131,10 @@ const PhoneCard: FC<{ phone: Phone }> = ({ phone }) => {
 const PhonesList = () => {
     const searchParams = useSearchParams();
     const brandFilter = searchParams.get("brand");
+    const resolvedBrandFilter = brandFilter ? brandAliases[brandFilter.toLowerCase()] ?? brandFilter : null;
 
-    const filteredPhones = brandFilter
-        ? phones.filter(p => p.brand.toLowerCase() === brandFilter.toLowerCase())
+    const filteredPhones = resolvedBrandFilter
+        ? phones.filter(p => p.brand.toLowerCase() === resolvedBrandFilter.toLowerCase())
         : phones;
 
     return (

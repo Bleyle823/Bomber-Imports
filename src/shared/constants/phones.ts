@@ -11,6 +11,14 @@ export interface Phone {
         processor: string;
         camera: string;
     };
+    detailSpecs: {
+        storage: string;
+        battery: string;
+        condition: string;
+        warranty: string;
+        network: string;
+        highlights: string[];
+    };
 }
 
 export const phones: Phone[] = [
@@ -26,6 +34,14 @@ export const phones: Phone[] = [
             display: '6.9" ProMotion OLED',
             processor: "A19 Pro (Expected)",
             camera: "Ultra-advanced Triple Camera"
+        },
+        detailSpecs: {
+            storage: "256GB base storage",
+            battery: "All-day battery life",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["ProMotion display", "Flagship Apple silicon", "Premium titanium-style finish"]
         }
     },
     {
@@ -40,6 +56,14 @@ export const phones: Phone[] = [
             display: '6.8" Dynamic AMOLED 2X',
             processor: "Snapdragon 8 Gen 1",
             camera: "108MP Quad Camera"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "5,000mAh battery",
+            condition: "Clean import",
+            warranty: "6-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Built-in S Pen", "100x Space Zoom", "Large AMOLED display"]
         }
     },
     {
@@ -54,6 +78,14 @@ export const phones: Phone[] = [
             display: '6.7" LTPO OLED',
             processor: "Google Tensor",
             camera: "50MP Wide"
+        },
+        detailSpecs: {
+            storage: "128GB storage",
+            battery: "5,003mAh battery",
+            condition: "Clean import",
+            warranty: "6-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Google Tensor chip", "Clean Android experience", "Excellent computational photography"]
         }
     },
     {
@@ -68,6 +100,14 @@ export const phones: Phone[] = [
             display: '6.8" Dynamic AMOLED 2X',
             processor: "Snapdragon 888",
             camera: "108MP Wide"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "5,000mAh battery",
+            condition: "Clean import",
+            warranty: "6-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Dual telephoto camera", "120Hz AMOLED display", "Premium Samsung flagship build"]
         }
     },
     {
@@ -82,6 +122,14 @@ export const phones: Phone[] = [
             display: '6.3" Super Retina XDR',
             processor: "A18 Pro",
             camera: "48MP Fusion Camera"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "Up to 27 hours video playback",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["A18 Pro performance", "Titanium design", "Pro camera controls"]
         }
     },
     {
@@ -95,6 +143,14 @@ export const phones: Phone[] = [
             display: '6.8" QHD+ AMOLED 2X',
             processor: "Snapdragon 8 Gen 3",
             camera: "200MP Wide-angle"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "5,000mAh battery",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Galaxy AI features", "S Pen included", "200MP camera system"]
         }
     },
     {
@@ -108,6 +164,14 @@ export const phones: Phone[] = [
             display: '6.3" LTPO OLED',
             processor: "Google Tensor G4",
             camera: "50MP Main with OIS"
+        },
+        detailSpecs: {
+            storage: "128GB storage",
+            battery: "All-day Pixel battery",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Google AI tools", "Pro-level Pixel camera", "Bright LTPO OLED display"]
         }
     },
     {
@@ -121,6 +185,14 @@ export const phones: Phone[] = [
             display: '6.1" Super Retina XDR',
             processor: "A16 Bionic",
             camera: "48MP Main"
+        },
+        detailSpecs: {
+            storage: "128GB storage",
+            battery: "Up to 20 hours video playback",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Dynamic Island", "USB-C charging", "48MP main camera"]
         }
     },
     {
@@ -134,6 +206,14 @@ export const phones: Phone[] = [
             display: '6.9" Super Retina XDR',
             processor: "A18 Pro",
             camera: "48MP Fusion Camera"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "Up to 33 hours video playback",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Largest iPhone display", "A18 Pro performance", "Best iPhone battery life"]
         }
     },
     {
@@ -147,6 +227,14 @@ export const phones: Phone[] = [
             display: '7.6" Dynamic AMOLED 2X',
             processor: "Snapdragon 8 Gen 3",
             camera: "50MP Wide-angle"
+        },
+        detailSpecs: {
+            storage: "256GB storage",
+            battery: "4,400mAh dual battery",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Foldable main display", "Productivity multitasking", "Galaxy AI ready"]
         }
     },
     {
@@ -160,6 +248,14 @@ export const phones: Phone[] = [
             display: '6.1" Super Retina XDR',
             processor: "A15 Bionic",
             camera: "12MP Main"
+        },
+        detailSpecs: {
+            storage: "128GB storage",
+            battery: "Up to 20 hours video playback",
+            condition: "Clean import",
+            warranty: "6-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Reliable A15 performance", "Dual-camera system", "Crash Detection support"]
         }
     },
     {
@@ -173,6 +269,14 @@ export const phones: Phone[] = [
             display: '6.1" Actua Display',
             processor: "Google Tensor G3",
             camera: "64MP Wide"
+        },
+        detailSpecs: {
+            storage: "128GB storage",
+            battery: "All-day adaptive battery",
+            condition: "Brand new import",
+            warranty: "12-month shop warranty",
+            network: "Unlocked for Kenyan networks",
+            highlights: ["Google AI at a better price", "64MP camera", "Compact Pixel design"]
         }
     }
 ];
