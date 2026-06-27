@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "headline": "The Future is Here",
+    "subheadline": "Premium Tech. Unbeatable Prices. Delivery across Kenya. Experience the next generation of smartphones with Bomber Imports.",
+    "ctaLabel": "Explore Phones",
+    "ctaLink": "/phones",
+    "secondaryCtaLabel": "Browse Categories",
+    "secondaryCtaLink": "#categories"
+  },
+  "featuredPhoneIds": [
+    "iphone-16-pro-max",
+    "samsung-s24-ultra",
+    "google-pixel-9-pro",
+    "iphone-15"
+  ],
+  "categories": [
+    {
+      "title": "iPhone Series",
+      "description": "The latest from Apple. From iPhone 13 to 16 Pro Max.",
+      "image": "/images/iphone-category.jpg",
+      "link": "/phones?brand=iphone",
+      "color": "bg-zinc-800",
+      "startingPrice": "85,000"
+    },
+    {
+      "title": "Samsung Series",
+      "description": "Premium Android Flagships. High-performance models for power users.",
+      "image": "/images/samsung-category.jpg",
+      "link": "/phones?brand=samsung",
+      "color": "bg-blue-900/20",
+      "startingPrice": "145,000"
+    },
+    {
+      "title": "Google Collection",
+      "description": "Smart, sleek imported devices with professional-grade cameras.",
+      "image": "/images/pixel-category.jpg",
+      "link": "/phones?brand=pixel",
+      "color": "bg-orange-900/20",
+      "startingPrice": "65,000"
+    }
+  ],
+  "highlightSlides": [
+    {
+      "title": "Premium Smartphones. \n Unbeatable Deals. \n Delivered to your doorstep.",
+      "videoSrc": "/videos/highlight-first.mp4"
+    },
+    {
+      "title": "Elite iPhone Collection. \n Performance meets style. \n Premium quality at Bomber Imports.",
+      "videoSrc": "/videos/highlight-second.mp4"
+    },
+    {
+      "title": "Premium Android Flagship. \n Speed and Power redefined. \n Experience excellence at Bomber Imports.",
+      "videoSrc": "/videos/highlight-third.mp4"
+    },
+    {
+      "title": "Pro Photography Edition. \n Smart, beautiful, and sleek. \n Your perfect companion for every shot.",
+      "videoSrc": "/videos/highlight-fourth.mp4"
+    }
+  ]
+}

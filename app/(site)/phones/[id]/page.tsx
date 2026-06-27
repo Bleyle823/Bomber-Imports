@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { createWhatsAppLink } from "@/shared/constants/contact";
-import { phones } from "@/shared/constants/phones";
+import { getPhoneById } from "@/lib/data/phones";
 
 interface Props {
     params: {
@@ -40,14 +40,10 @@ const formatPrice = (price: number) => {
     }).format(price);
 };
 
-export const generateStaticParams = () => {
-    return phones.map((phone) => ({
-        id: phone.id,
-    }));
-};
+export const dynamic = "force-dynamic";
 
-export const generateMetadata = ({ params }: Props) => {
-    const phone = phones.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: Props) {
+    const phone = await getPhoneById(params.id);
 
     if (!phone) {
         return {
@@ -59,10 +55,10 @@ export const generateMetadata = ({ params }: Props) => {
         title: `${phone.model} | Bomber Imports`,
         description: `${phone.model} specs, price, and customer reviews from Bomber Imports.`,
     };
-};
+}
 
-export default function PhoneDetailsPage({ params }: Props) {
-    const phone = phones.find((item) => item.id === params.id);
+export default async function PhoneDetailsPage({ params }: Props) {
+    const phone = await getPhoneById(params.id);
 
     if (!phone) {
         notFound();
@@ -80,6 +76,8 @@ export default function PhoneDetailsPage({ params }: Props) {
         ["Network", phone.detailSpecs.network],
     ];
 
+    const primaryImage = phone.images[0] ?? "/images/iphone-category.jpg";
+
     return (
         <main className="min-h-screen bg-black pt-24 pb-20 text-white">
             <div className="container">
@@ -91,7 +89,7 @@ export default function PhoneDetailsPage({ params }: Props) {
                     <div className="rounded-[2rem] border border-zinc-800 bg-zinc-950 p-4 md:p-6">
                         <div className="relative h-[420px] overflow-hidden rounded-3xl bg-zinc-900 md:h-[560px]">
                             <Image
-                                src={phone.images[0]}
+                                src={primaryImage}
                                 alt={phone.model}
                                 fill
                                 priority

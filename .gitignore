@@ -22,3 +22,6 @@ Thumbs.db
 # TypeScript
 tsconfig.tsbuildinfo
 
+# Keep upload folders but ignore uploaded files
+public/images/uploads/**/*
+!public/images/uploads/**/.gitkeep

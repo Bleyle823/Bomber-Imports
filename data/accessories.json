@@ -1,0 +1,56 @@
+[
+  {
+    "id": "magsafe-clear-case",
+    "name": "MagSafe Clear Case",
+    "category": "Cases",
+    "price": "KES 3,500",
+    "description": "Slim transparent protection for iPhone models with MagSafe-style magnetic alignment.",
+    "compatibility": "iPhone 14, 15, and 16 series",
+    "images": []
+  },
+  {
+    "id": "45w-usb-c-fast-charger",
+    "name": "45W USB-C Fast Charger",
+    "category": "Chargers",
+    "price": "KES 4,200",
+    "description": "Compact wall adapter for fast charging Samsung, Pixel, iPhone, and other USB-C devices.",
+    "compatibility": "USB-C phones and tablets",
+    "images": []
+  },
+  {
+    "id": "tempered-glass-protector",
+    "name": "Tempered Glass Protector",
+    "category": "Protection",
+    "price": "KES 1,200",
+    "description": "Edge-friendly glass protector with clear touch response and scratch resistance.",
+    "compatibility": "Available for iPhone, Samsung, and Pixel",
+    "images": []
+  },
+  {
+    "id": "wireless-earbuds-pro",
+    "name": "Wireless Earbuds Pro",
+    "category": "Audio",
+    "price": "KES 8,500",
+    "description": "Everyday wireless earbuds with noise reduction, compact case, and long battery life.",
+    "compatibility": "Bluetooth smartphones",
+    "images": []
+  },
+  {
+    "id": "10000mah-power-bank",
+    "name": "10,000mAh Power Bank",
+    "category": "Power",
+    "price": "KES 5,800",
+    "description": "Portable backup battery with USB-C input and output for charging on the move.",
+    "compatibility": "USB-C and USB-A devices",
+    "images": []
+  },
+  {
+    "id": "camera-lens-protector",
+    "name": "Camera Lens Protector",
+    "category": "Protection",
+    "price": "KES 1,500",
+    "description": "Low-profile camera ring protector for flagship phones with large camera modules.",
+    "compatibility": "Selected iPhone and Samsung models",
+    "images": []
+  }
+]

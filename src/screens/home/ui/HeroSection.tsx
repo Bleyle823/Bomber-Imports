@@ -3,8 +3,9 @@ import { type FC, useRef } from "react";
 import { motion } from "framer-motion";
 
 import Button from "@/shared/ui/Button";
+import type { HomepageHero } from "@/lib/data/types";
 
-const HeroSection: FC = () => {
+const HeroSection: FC<{ hero: HomepageHero }> = ({ hero }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -160,24 +161,24 @@ const HeroSection: FC = () => {
         className="relative z-20 flex flex-col items-center mt-4 px-4 text-center max-w-4xl"
       >
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4 drop-shadow-lg">
-          The Future is Here
+          {hero.headline}
         </h2>
         <p className="text-zinc-300 max-w-lg mb-8 text-sm md:text-base leading-relaxed">
-          Premium Tech. Unbeatable Prices. Delivery across Kenya. Experience the next generation of smartphones with Bomber Imports.
+          {hero.subheadline}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center justify-center">
           <Button 
-            onClick={() => window.location.href = '/phones'}
+            onClick={() => window.location.href = hero.ctaLink}
             className="w-full sm:w-auto px-8 py-3.5 bg-white text-black hover:bg-zinc-200 transition-colors rounded-full font-bold shadow-[0_0_20px_rgba(255,255,255,0.3)] text-sm md:text-base border-0"
           >
-            Explore Phones
+            {hero.ctaLabel}
           </Button>
           <Button 
-            onClick={() => window.location.href = '#categories'}
+            onClick={() => window.location.href = hero.secondaryCtaLink}
             className="w-full sm:w-auto px-8 py-3.5 bg-transparent border-2 border-zinc-700 text-white hover:bg-zinc-800 transition-colors rounded-full font-bold text-sm md:text-base"
           >
-            Browse Categories
+            {hero.secondaryCtaLabel}
           </Button>
         </div>
       </motion.div>
