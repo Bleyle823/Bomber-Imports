@@ -31,24 +31,20 @@ export function isValidUploadCategory(value: string): value is UploadCategory {
     return value === "phones" || value === "accessories" || value === "categories";
 }
 
-function isBlobLike(value: FormDataEntryValue | null): value is Blob {
+function isUploadFile(value: FormDataEntryValue | null): value is File {
     return (
         typeof value === "object" &&
         value !== null &&
-        typeof (value as Blob).arrayBuffer === "function" &&
-        typeof (value as Blob).size === "number"
+        typeof value.arrayBuffer === "function" &&
+        typeof value.size === "number"
     );
 }
 
-function getFileName(file: Blob): string {
-    if ("name" in file && typeof (file as File).name === "string") {
-        return (file as File).name;
-    }
-
-    return "upload";
+function getFileName(file: File): string {
+    return typeof file.name === "string" && file.name.length > 0 ? file.name : "upload";
 }
 
-function resolveMimeType(file: Blob): string | null {
+function resolveMimeType(file: File): string | null {
     const declaredType = (file.type || "").toLowerCase().trim();
 
     if (declaredType && ALLOWED_MIME_TYPES.has(declaredType)) {
@@ -60,7 +56,7 @@ function resolveMimeType(file: Blob): string | null {
 }
 
 export async function saveUploadedImage(
-    file: Blob,
+    file: File,
     category: UploadCategory,
 ): Promise<{ url: string } | { error: string }> {
     const mimeType = resolveMimeType(file);
@@ -89,8 +85,8 @@ export async function saveUploadedImage(
     return { url: `/images/uploads/${category}/${filename}` };
 }
 
-export function parseUploadFile(value: FormDataEntryValue | null): Blob | null {
-    if (!isBlobLike(value)) {
+export function parseUploadFile(value: FormDataEntryValue | null): File | null {
+    if (!isUploadFile(value)) {
         return null;
     }
 
