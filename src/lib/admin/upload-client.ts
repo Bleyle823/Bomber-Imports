@@ -13,12 +13,21 @@ export async function uploadAdminImage(
     const response = await fetch("/api/admin/upload", {
         method: "POST",
         body: formData,
+        credentials: "include",
     });
 
-    const data = (await response.json()) as { url?: string; error?: string };
+    let data: { url?: string; error?: string } = {};
+
+    try {
+        data = (await response.json()) as { url?: string; error?: string };
+    } catch {
+        throw new Error(
+            response.ok ? "Upload failed: invalid server response" : `Upload failed (${response.status})`,
+        );
+    }
 
     if (!response.ok || !data.url) {
-        throw new Error(data.error ?? "Upload failed");
+        throw new Error(data.error ?? `Upload failed (${response.status})`);
     }
 
     return data.url;

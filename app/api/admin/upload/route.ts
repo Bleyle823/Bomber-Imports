@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
 import { requireAdmin } from "@/lib/auth/require-admin";
-import { isValidUploadCategory, saveUploadedImage } from "@/lib/data/upload";
+import { isValidUploadCategory, parseUploadFile, saveUploadedImage } from "@/lib/data/upload";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
     const unauthorized = await requireAdmin();
@@ -12,10 +14,10 @@ export async function POST(request: Request) {
 
     try {
         const formData = await request.formData();
-        const file = formData.get("file");
+        const file = parseUploadFile(formData.get("file"));
         const category = formData.get("category");
 
-        if (!(file instanceof File)) {
+        if (!file) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
         }
 
@@ -30,7 +32,9 @@ export async function POST(request: Request) {
         }
 
         return NextResponse.json(result);
-    } catch {
-        return NextResponse.json({ error: "Failed to upload image" }, { status: 500 });
+    } catch (error) {
+        console.error("Upload failed:", error);
+        const message = error instanceof Error ? error.message : "Failed to upload image";
+        return NextResponse.json({ error: message }, { status: 500 });
     }
 }

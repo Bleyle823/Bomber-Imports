@@ -73,7 +73,13 @@ export default function ImageUploadField({
                     {images.map((image, index) => (
                         <div key={`${image}-${index}`} className="relative overflow-hidden rounded-xl bg-zinc-900">
                             <div className="relative h-28">
-                                <Image src={image} alt="" fill className="object-contain p-2" />
+                                <Image
+                                    src={image}
+                                    alt=""
+                                    fill
+                                    unoptimized
+                                    className="object-contain p-2"
+                                />
                             </div>
                             <AdminButton
                                 type="button"
