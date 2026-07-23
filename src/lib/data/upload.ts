@@ -1,4 +1,5 @@
-import { mkdir, writeFile } from "fs/promises";
+import { put, list } from "@vercel/blob";
+import { mkdir, writeFile, readFile } from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
 
@@ -31,6 +32,10 @@ export function isValidUploadCategory(value: string): value is UploadCategory {
     return value === "phones" || value === "accessories" || value === "categories";
 }
 
+export function canUseBlobStorage(): boolean {
+    return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
+
 function isUploadFile(value: FormDataEntryValue | null): value is File {
     return (
         typeof value === "object" &&
@@ -55,6 +60,33 @@ function resolveMimeType(file: File): string | null {
     return EXTENSION_MIME_TYPES[extension] ?? null;
 }
 
+async function saveToLocalDisk(
+    buffer: Buffer,
+    category: UploadCategory,
+    filename: string,
+): Promise<string> {
+    const uploadDir = path.join(process.cwd(), "public", "images", "uploads", category);
+    await mkdir(uploadDir, { recursive: true });
+    await writeFile(path.join(uploadDir, filename), buffer);
+    return `/images/uploads/${category}/${filename}`;
+}
+
+async function saveToVercelBlob(
+    buffer: Buffer,
+    category: UploadCategory,
+    filename: string,
+    mimeType: string,
+): Promise<string> {
+    const blob = await put(`uploads/${category}/${filename}`, buffer, {
+        access: "public",
+        contentType: mimeType,
+        addRandomSuffix: false,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
+
+    return blob.url;
+}
+
 export async function saveUploadedImage(
     file: File,
     category: UploadCategory,
@@ -75,14 +107,29 @@ export async function saveUploadedImage(
 
     const extension = MIME_EXTENSIONS[mimeType];
     const filename = `${Date.now()}-${randomUUID()}${extension}`;
-    const uploadDir = path.join(process.cwd(), "public", "images", "uploads", category);
-
-    await mkdir(uploadDir, { recursive: true });
-
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(uploadDir, filename), buffer);
 
-    return { url: `/images/uploads/${category}/${filename}` };
+    try {
+        if (canUseBlobStorage()) {
+            const url = await saveToVercelBlob(buffer, category, filename, mimeType);
+            return { url };
+        }
+
+        const url = await saveToLocalDisk(buffer, category, filename);
+        return { url };
+    } catch (error) {
+        const message = error instanceof Error ? error.message : "Failed to save image";
+
+        // Common production failure when Blob is not configured on serverless hosts.
+        if (message.includes("EROFS") || message.includes("read-only file system")) {
+            return {
+                error:
+                    "Image uploads require Vercel Blob on this host. Add BLOB_READ_WRITE_TOKEN in your project env.",
+            };
+        }
+
+        return { error: message };
+    }
 }
 
 export function parseUploadFile(value: FormDataEntryValue | null): File | null {
@@ -91,4 +138,31 @@ export function parseUploadFile(value: FormDataEntryValue | null): File | null {
     }
 
     return value;
+}
+
+export async function findBlobByPathname(pathname: string) {
+    const { blobs } = await list({
+        prefix: pathname,
+        limit: 20,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
+
+    return blobs.find((blob) => blob.pathname === pathname) ?? null;
+}
+
+export async function putJsonBlob(pathname: string, data: unknown): Promise<string> {
+    const blob = await put(pathname, JSON.stringify(data, null, 2), {
+        access: "public",
+        contentType: "application/json",
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+    });
+
+    return blob.url;
+}
+
+export async function readLocalJsonFile(filename: string): Promise<string> {
+    const filePath = path.join(process.cwd(), "data", filename);
+    return readFile(filePath, "utf-8");
 }
